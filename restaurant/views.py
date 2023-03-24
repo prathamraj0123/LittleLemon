@@ -1,21 +1,24 @@
 from django.shortcuts import render
 from rest_framework import generics, viewsets
-from .serializers import MenuSerializer, BookingSerializer
-from .models import Menu, Booking
+from .serializers import MenuItemSerializer, BookingSerializer
+from .models import MenuItem, Booking
 from rest_framework.permissions import IsAuthenticated
 
-# Create your views here.
+# LittleLemon Homepage view
 def index(request):
     return render(request, 'index.html', {})
 
+# View/Create MenuItem
 class MenuItemView(generics.ListCreateAPIView):
-    queryset = Menu.objects.all()
-    serializer_class = MenuSerializer
+    queryset = MenuItem.objects.all()
+    serializer_class = MenuItemSerializer
     
+# View/Update/Delete SingleMenuItem
 class SingleMenuItemView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Menu.objects.all()
-    serializer_class = MenuSerializer
+    queryset = MenuItem.objects.all()
+    serializer_class = MenuItemSerializer
     
+# View Booking
 class BookingViewSet(viewsets.ModelViewSet):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
